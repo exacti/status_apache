@@ -9,30 +9,56 @@ $consulta = 'http://localhost/server-status?ExtendedStatus=On';
 $tratamento = file_get_contents($consulta);
 $pagina = str_replace(array('</head>', '<table border="0">', '</th></tr>', '</body>', '<body>'), array('
 <!--<script type="text/javascript" src="js/jquery-ui/js/jquery-1.9.1.js"></script>-->
-<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui/js/jquery-ui-1.10.3.custom.min.js"></script>
-<link href="js/jquery-ui/css/cupertino/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
-<link href="css/demo_table_jui.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="js/jquery.dataTables.columnFilter.js"></script>
-<script type="text/javascript" src="js/jquery.dataTables.pagination.js"></script>
-<link href="css/estilo.css" rel="stylesheet" type="text/css" />
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/css/dataTables.bootstrap4.min.css" integrity="sha256-F+DaKAClQut87heMIC6oThARMuWne8+WzxIDT7jXuPA=" crossorigin="anonymous" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/dataTables.bootstrap4.min.js" integrity="sha256-hJ44ymhBmRPJKIaKRf3DSX5uiFEZ9xB/qx8cNbJvIMU=" crossorigin="anonymous"></script>
+<style>
+/* CSS Document */
+
+body{
+ padding-top: 80px;
+}
+
+th {
+	/*white-space:nowrap;*/
+	/*line-height: 50px;*/
+}
+table {
+	/*font-size:14px !important;*/
+}
+footer {
+	text-align:center;
+}
+.navbar-form .form-control {
+	/*width:100%;*/
+}
+.tooltip.bottom {
+	border:none;
+	background:none;
+}
+</style>
 '.$refresh.'
 </head>', '<table id="dataTable" cellpadding="2"><thead>', '</th></tr></thead>', '<script type="text/javascript">
 
 $(document).ready(function() {
 	 $(\'#refresh\').tooltip();
-	oTable = $(\'#dataTable\').dataTable({
+	oTable = $(\'#dataTable\').DataTable({
 		"aaSorting": [[1, "desc"]],
-		"bJQueryUI": true,
-		"bScrollCollapse": true,
+		//"bJQueryUI": true,
+		"autoWidth": true,
 		"sScrollY": "auto",
 		"bAutoWidth": true,
 		"bSortClasses": true,
-		"bPaginate": true,
+		"paging": true,
 		"sPaginationType": "full_numbers", //full_numbers,two_button
 		"bStateSave": false,
 		"bInfo": true,
@@ -45,43 +71,41 @@ $(document).ready(function() {
 } );
  
     </script>
+    </div>
 	<footer>
 	Gerado por Apache mod_status viewer - ExacTI Solu&ccedil;&otilde;es em Tecnologia<br><a href="http://www.exacti.com.br" target="_blank">www.exacti.com.br</a>
 	</footer>
 	</body>', '
-	<body><nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container-fluid">
+	<body>
+	<nav class="navbar  navbar-dark bg-primary fixed-top" role="navigation">
+            
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+    
       <a class="navbar-brand" href="#">Apache mod_status viewer</a>
-    </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto"> </ul>
         
-      <form class="navbar-form navbar-left form-horizontal" role="search">
-        <div class="form-group">
-		<label for="refresh" class="col-sm-4 control-label">Auto-refresh</label>
-		<div class="col-sm-3">
-          <input name="refresh" id="refresh" value="'.$refresh_t.'" type="text" class="form-control" placeholder="0" data-toggle="tooltip" data-placement="bottom" title="Em segundos, 0 para desativar.">
-		  </div>
-		  <div class="col-sm-2">
-		  <button type="submit" class="btn btn-default">Ok</button>
-		  </div>
+      <form class="" role="search">
+        <div class="form-row">
+            <div class="col-3">
+                <input name="refresh" id="refresh" value="'.(($refresh_t == 0) ? "" : $refresh_t).'" type="text" class="form-control" placeholder="Auto-refresh" data-toggle="tooltip" data-placement="bottom" title="Seconds. 0 for disable.">
+		    </div>
+            <div class="col-2">
+		        <button type="submit" class="btn btn-light">Ok</button>
+		    </div>
         </div>
         
       </form>
       
     </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>'), $tratamento);
+  <!-- /.container-fluid -->
+</nav> <div class="container-fluid">'), $tratamento);
 
 echo $pagina;
 
