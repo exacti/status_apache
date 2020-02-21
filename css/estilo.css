@@ -1,0 +1,23 @@
+/* CSS Document */
+
+body {
+	margin: 5px;
+	margin-top: 60px;
+}
+th {
+	/*white-space:nowrap;*/
+	/*line-height: 50px;*/
+}
+table {
+	font-size:14px !important;
+}
+footer {
+	text-align:center;
+}
+.navbar-form .form-control {
+	width:100%;
+}
+.tooltip.bottom {
+	border:none;
+	background:none;
+}
