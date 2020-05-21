@@ -1,9 +1,9 @@
-<?php 
+<?php
 ini_set('allow_url_fopen', '1');
 ini_set('display_errors', 1);
 
 $refresh_t = isset($_GET['refresh']) ? $_GET['refresh'] : '0';
-$refresh = $refresh_t > 0 ? '<meta http-equiv="refresh" content="'.$_GET['refresh'].'" >' : '';
+$refresh = $refresh_t > 0 ? '<meta http-equiv="refresh" content="' . $_GET['refresh'] . '" >' : '';
 
 $consulta = 'http://localhost/server-status?ExtendedStatus=On';
 $tratamento = file_get_contents($consulta);
@@ -14,9 +14,9 @@ $pagina = str_replace(array('</head>', '<table border="0">', '</th></tr>', '</bo
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
 
-<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/css/dataTables.bootstrap4.min.css" integrity="sha256-F+DaKAClQut87heMIC6oThARMuWne8+WzxIDT7jXuPA=" crossorigin="anonymous" />
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -46,7 +46,7 @@ footer {
 	background:none;
 }
 </style>
-'.$refresh.'
+' . $refresh . '
 </head>', '<table id="dataTable" cellpadding="2"><thead>', '</th></tr></thead>', '<script type="text/javascript">
 
 $(document).ready(function() {
@@ -70,6 +70,11 @@ $(document).ready(function() {
 	});
 } );
  
+$("table").addClass("table");
+ 
+$("table").addClass("table-hover");
+
+$("table thead").addClass("thead-light");
     </script>
     </div>
 	<footer>
@@ -94,7 +99,7 @@ $(document).ready(function() {
       <form class="" role="search">
         <div class="form-row">
             <div class="col-3">
-                <input name="refresh" id="refresh" value="'.(($refresh_t == 0) ? "" : $refresh_t).'" type="text" class="form-control" placeholder="Auto-refresh" data-toggle="tooltip" data-placement="bottom" title="Seconds. 0 for disable.">
+                <input name="refresh" id="refresh" value="' . (($refresh_t == 0) ? "" : $refresh_t) . '" type="text" class="form-control" placeholder="Auto-refresh" data-toggle="tooltip" data-placement="bottom" title="Seconds. 0 for disable.">
 		    </div>
             <div class="col-2">
 		        <button type="submit" class="btn btn-light">Ok</button>
@@ -108,5 +113,3 @@ $(document).ready(function() {
 </nav> <div class="container-fluid">'), $tratamento);
 
 echo $pagina;
-
-?>
